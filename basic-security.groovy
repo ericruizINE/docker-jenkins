@@ -2,19 +2,21 @@
 
 import jenkins.model.*
 import hudson.security.*
-import hudson.security.csrf.DefaultCrumbIssuer
+import hudson.util.*
+import jenkins.install.*
 
 def instance = Jenkins.getInstance()
 
-// Setup admin user if not already created
+// Crear usuario admin con contraseña predefinida
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-hudsonRealm.createAccount('admin', 'password')
+hudsonRealm.createAccount('admin','password') 
 instance.setSecurityRealm(hudsonRealm)
 
-// Enable Full Control Once Logged In
+// Configurar permisos de seguridad
 def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
 instance.setAuthorizationStrategy(strategy)
-instance.save()
 
-// Disable CLI over Remoting
-instance.getDescriptor("jenkins.CLI").get().setEnabled(false)
+// Marcar instalación como completada
+instance.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
+
+instance.save()
