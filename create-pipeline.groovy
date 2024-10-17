@@ -1,34 +1,25 @@
 import jenkins.model.*
 import hudson.model.*
-import javaposse.jobdsl.plugin.ExecuteDslScripts
 
-// Nombre del nuevo pipeline
-def jobName = "Publicacion"
+def jobName = "Publicacion" // Nombre del job
+def repoUrl = "https://github.com/ericruizINE/descargaCSV.git" // URL del repositorio
+def branchName = "main" // Rama del repositorio
 
-// Verificar si el job ya existe
 def instance = Jenkins.getInstance()
+
 if (instance.getJob(jobName) == null) {
     println("Creating new pipeline job: ${jobName}")
 
+    // Crear el pipeline job
     def pipelineJob = instance.createProject(org.jenkinsci.plugins.workflow.job.WorkflowJob, jobName)
 
-    // Definir el script del pipeline
-    def script = """
-    pipeline {
-        agent any
-        stages {
-            stage('Clone Repository') {
-                steps {
-                    git url: 'https://github.com/ericruizINE/descargaCSV.git', branch: 'main'
-                }
-            }
-        }
-    }
-    """.stripIndent()
+    // Configurar la definición del pipeline para que use un Jenkinsfile desde el repositorio Git
+    def scm = new hudson.plugins.git.GitSCM(repoUrl)
+    scm.branches = [new hudson.plugins.git.BranchSpec("*/${branchName}")]
+    pipelineJob.setDefinition(new org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition(scm, "Jenkinsfile"))
 
-    pipelineJob.setDefinition(new org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition(script, true))
     pipelineJob.save()
-    println("Pipeline job ${jobName} created successfully.")
+    println("Pipeline job ${jobName} created successfully with Jenkinsfile from ${repoUrl}.")
 } else {
     println("Pipeline job ${jobName} already exists.")
 }
