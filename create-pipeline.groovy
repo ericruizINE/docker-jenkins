@@ -1,8 +1,8 @@
 import jenkins.model.*
 import hudson.model.*
 
-def jobName = "Publicacion" // Nombre del job
-def repoUrl = "https://github.com/ericruizINE/descargaCSV.git" // URL del repositorio
+def jobName = "Publicacion_POM" // Nombre del job
+def repoUrl = "https://github.com/ericruizINE/Publicacion_POM.git" // URL del repositorio
 def branchName = "main" // Rama del repositorio
 
 def instance = Jenkins.getInstance()

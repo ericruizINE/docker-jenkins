@@ -2,7 +2,7 @@ import jenkins.model.*
 import hudson.model.*
 
 // Nombre del pipeline a construir
-def jobName = "Publicacion"
+def jobName = "Publicacion_POM"
 
 // Obtener la instancia de Jenkins
 def instance = Jenkins.getInstance()

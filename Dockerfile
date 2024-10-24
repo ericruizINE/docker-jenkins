@@ -8,6 +8,8 @@ RUN apt-get -y update && apt-get install -y \
     python3-venv \
     wget \
     unzip 
+    # \
+    #default-jre
 
 # Descargar e instalar Allure Commandline
 RUN wget -q https://github.com/allure-framework/allure2/releases/download/2.30.0/allure-2.30.0.zip && \
