@@ -90,21 +90,11 @@ $ password
 ```
 ## Como usar el ambiente
 
-Al construir la imagen del `docker-compose.yml` contiene los plugins necesarios ademas de `Blueocean` y `Allure Reports` por lo que es necesario realizar la configuracion del Allure Commandline:
+Al construir la imagen del `docker-compose.yml` contiene los plugins necesarios para el proyecto ademas de `Blueocean` y `Allure Reports` 
 
-- Ir a `Administrar Jenkins - Tools` http://localhost:8080/manage/configureTools/
-- Ubicarnos en Allure Commandline
-- Añadir Allure Commandline
-    ```
-    Nombre: ALLUREHOME
-    Version: 2.30.0
-    Extraer *.zip/*.tar.gz: https://github.com/allure-framework/allure2/releases/download/2.30.0/allure-2.30.0.zip
-    ```
-- Save - Guardamos la configuración
+Al arrancar el docker-jenkins, se crea el Pipeline `Publicacion` en automático asi como se construye por primera vez para validar las configuraciones.
 
-Al arrancar el docker-jenkins, se crea el Pipeline `Publicacion` en automático asi como se construye por primera vez para validar las configuraciones, por lo que puede mandar error al no tener `Allure Commandline` (regresar al paso anterior).
-
-Una vez configurada correctamente, se puede construir el Pipeline sin problemas desde `Blue Ocean` y validar los resultados en el reporte de `Allure`.
+En caso de que no se inicie, se puede construir el Pipeline sin problemas desde `Blue Ocean` y validar los resultados en el reporte de `Allure`.
 
 Arrancar ambiente
 ```
